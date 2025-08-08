@@ -116,12 +116,12 @@ export default function HeroSection() {
           {/* Content */}
           <div className="relative z-10 h-full flex items-center">
             <div className="text-left text-white max-w-4xl ml-8 lg:ml-16 px-4 lg:px-8">
-              {/* Logo */}
+              {/* Logo - 원본과 동일한 fadeInUp 효과 */}
               <motion.div
                 className="mb-8"
-                initial={{ y: -50, opacity: 0 }}
+                initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
+                transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
               >
                 <Image
                   src={slides[currentSlide].logo}
@@ -132,45 +132,45 @@ export default function HeroSection() {
                 />
               </motion.div>
 
-              {/* Title */}
+              {/* Title - 원본과 동일한 fadeInUp 효과 */}
               <motion.h1
                 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
-                initial={{ y: 50, opacity: 0 }}
+                initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
+                transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
               >
                 {slides[currentSlide].title}
               </motion.h1>
 
-              {/* Subtitle */}
+              {/* Subtitle - 원본과 동일한 fadeInUp 효과 */}
               <motion.p
                 className="text-xl md:text-2xl lg:text-3xl font-light mb-8"
-                initial={{ y: 50, opacity: 0 }}
+                initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.7, duration: 0.6 }}
+                transition={{ delay: 0.5, duration: 0.7, ease: "easeOut" }}
               >
                 {slides[currentSlide].subtitle}
               </motion.p>
 
-              {/* Description */}
+              {/* Description - 원본과 동일한 fadeInUp 효과 */}
               {slides[currentSlide].description && (
                 <motion.p
                   className="text-lg md:text-xl font-light mb-12 leading-relaxed"
-                  initial={{ y: 50, opacity: 0 }}
+                  initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
+                  transition={{ delay: 0.6, duration: 0.7, ease: "easeOut" }}
                   style={{ whiteSpace: 'pre-line' }}
                 >
                   {slides[currentSlide].description}
                 </motion.p>
               )}
 
-              {/* Call to Action */}
+              {/* Call to Action - 원본과 동일한 fadeInUp 효과 */}
               <motion.div
                 className="flex flex-col sm:flex-row items-start gap-4"
-                initial={{ y: 50, opacity: 0 }}
+                initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.9, duration: 0.6 }}
+                transition={{ delay: 0.7, duration: 0.7, ease: "easeOut" }}
               >
                 <motion.button
                   className="px-8 py-4 bg-red-600 text-white text-lg font-semibold rounded-full hover:bg-red-700 transition-colors"

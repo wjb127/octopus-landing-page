@@ -9,8 +9,21 @@ export default function ProfitAnalysisSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
+        staggerChildren: 0.2, // 더 빠른 stagger 효과
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  // 추가적인 fadeInUp 효과
+  const fadeInUpVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.7,
+        ease: "easeOut" as const
       }
     }
   }
@@ -96,11 +109,11 @@ export default function ProfitAnalysisSection() {
             </motion.div>
           </div>
 
-          {/* 모바일 버전 이미지들 */}
+          {/* 모바일 버전 이미지들 - 순차적 fadeInUp 효과 */}
           <div className="lg:hidden space-y-8">
             <motion.div 
               className="text-center"
-              variants={zoomInVariants}
+              variants={fadeInUpVariants}
             >
               <Image
                 src="/images/95797d0fbf6f4.png"
@@ -112,8 +125,7 @@ export default function ProfitAnalysisSection() {
             </motion.div>
             <motion.div 
               className="text-center"
-              variants={zoomInVariants}
-              transition={{ delay: 0.2 }}
+              variants={fadeInUpVariants}
             >
               <Image
                 src="/images/f224f7918dbdd.png"
@@ -125,11 +137,10 @@ export default function ProfitAnalysisSection() {
             </motion.div>
           </div>
 
-          {/* 하단 주의사항 */}
+          {/* 하단 주의사항 - fadeInUp 효과 */}
           <motion.div 
             className="text-center mt-12"
-            variants={zoomInVariants}
-            transition={{ delay: 0.4 }}
+            variants={fadeInUpVariants}
           >
             <p className="text-white/70 text-sm">
               * 매장 상황에 따라 매출액 및 영업이익은 상이할 수 있습니다.

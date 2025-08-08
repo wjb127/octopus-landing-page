@@ -70,6 +70,31 @@ const reviewData = [
 export default function EducationSection() {
   const [currentOffset, setCurrentOffset] = useState(0)
   
+  // 원본과 동일한 fadeInUp 애니메이션 variants
+  const fadeInUpVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.7,
+        ease: "easeOut" as const
+      }
+    }
+  }
+
+  const scaleVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.7,
+        ease: "easeOut" as const
+      }
+    }
+  }
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentOffset((prev) => {
@@ -109,8 +134,14 @@ export default function EducationSection() {
       {/* 콘텐츠 */}
       <div className="relative z-10 container mx-auto px-4 py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto">
-          {/* 상단 타이틀 이미지 */}
-          <div className="text-center mb-8 sm:mb-12">
+          {/* 상단 타이틀 이미지 - fadeInUp 효과 */}
+          <motion.div 
+            className="text-center mb-8 sm:mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+            variants={fadeInUpVariants}
+          >
             <Image
               src="/images/dbf4ae8e7236a.png"
               alt="오직 본점에서만 6000개 이상, 황금쭈꾸미집 100% 진리뵤!"
@@ -118,10 +149,16 @@ export default function EducationSection() {
               height={165}
               className="mx-auto w-full max-w-2xl h-auto"
             />
-          </div>
+          </motion.div>
           
-          {/* 연속 회전 캐러셀 */}
-          <div className="relative overflow-hidden">
+          {/* 연속 회전 캐러셀 - scale 효과 */}
+          <motion.div 
+            className="relative overflow-hidden"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px", amount: 0.2 }}
+            variants={scaleVariants}
+          >
             <div className="flex space-x-6" style={{
               transform: `translateX(${currentOffset}px)`,
               transition: 'none', // 부드러운 연속 이동을 위해 transition 제거
@@ -184,7 +221,7 @@ export default function EducationSection() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
 
         </div>

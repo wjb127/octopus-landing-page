@@ -37,6 +37,47 @@ export default function BrandSection() {
       }
     }
   }
+
+  // 원본의 jackInTheBox 효과
+  const jackInTheBoxVariants = {
+    hidden: { 
+      scale: 0.1, 
+      opacity: 0,
+      rotate: -30
+    },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      rotate: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  }
+
+  // 원본 브랜드 섹션들을 위한 애니메이션 variants
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3
+      }
+    }
+  }
+
+  const authenticityItemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.7,
+        ease: "easeOut" as const
+      }
+    }
+  }
   return (
     <section 
       className="py-20 bg-gradient-to-b from-gray-50 to-white"
@@ -98,17 +139,29 @@ export default function BrandSection() {
           </motion.div>
 
 
-          {/* Brand Promise Section */}
-          <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 py-16 px-8 md:px-12 text-center">
+          {/* Brand Promise Section - jackInTheBox 효과 적용 */}
+          <motion.div 
+            className="bg-gradient-to-r from-yellow-400 to-yellow-500 py-16 px-8 md:px-12 text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+            variants={jackInTheBoxVariants}
+          >
             <div className="max-w-4xl mx-auto">
               <h3 className="text-3xl md:text-5xl font-bold text-white mb-8">
                 대한민국 쭈꾸미 맛의 기준을 세우다
               </h3>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Success Secret Section - 이미지로 교체 */}
-          <div className="bg-gray-100 py-20 text-center">
+          {/* Success Secret Section - 이미지로 교체, fadeInUp 효과 */}
+          <motion.div 
+            className="bg-gray-100 py-20 text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+            variants={itemVariants}
+          >
             <div className="max-w-4xl mx-auto px-4">
               <div className="flex items-center justify-center">
                 <Image
@@ -120,14 +173,20 @@ export default function BrandSection() {
                 />
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* First Authenticity Section */}
-          <div className="bg-gray-50 py-20">
+          {/* First Authenticity Section - 순차적 fadeInUp 효과 */}
+          <motion.div 
+            className="bg-gray-50 py-20"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+            variants={sectionVariants}
+          >
             <div className="max-w-7xl mx-auto px-4">
               <div className="grid lg:grid-cols-[2fr_1fr] gap-16 items-center">
                 {/* Left - Octopus Image with Vertical Text */}
-                <div className="relative">
+                <motion.div className="relative" variants={authenticityItemVariants}>
                   <div className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                     {/* Octopus Image */}
                     <Image
@@ -137,10 +196,10 @@ export default function BrandSection() {
                       className="object-contain"
                     />
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Right - Content */}
-                <div className="space-y-6">
+                <motion.div className="space-y-6" variants={authenticityItemVariants}>
                   {/* Badge */}
                   <div className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-bold text-lg">
                     첫 번째 진정성
@@ -164,17 +223,23 @@ export default function BrandSection() {
                       황금쭈꾸미집은 <span className="font-semibold text-red-600">황금색 고리</span>가 없는 쭈꾸미는 <span className="font-semibold">사용하지 않습니다</span>.
                     </p>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Second Authenticity Section */}
-          <div className="bg-white py-20">
+          {/* Second Authenticity Section - 순차적 fadeInUp 효과 */}
+          <motion.div 
+            className="bg-white py-20"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+            variants={sectionVariants}
+          >
             <div className="max-w-7xl mx-auto px-4">
               <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-center">
                 {/* Left - Content */}
-                <div className="space-y-6">
+                <motion.div className="space-y-6" variants={authenticityItemVariants}>
                   {/* Badge */}
                   <div className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-bold text-lg">
                     두 번째 진정성
@@ -198,10 +263,10 @@ export default function BrandSection() {
                       함께 철판에 볶아낸 <span className="font-semibold">쭈꾸미 본연의 맛</span>을 느낄 수 있습니다.
                     </p>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Right - Cooked Octopus Image with Vertical Text */}
-                <div className="relative">
+                <motion.div className="relative" variants={authenticityItemVariants}>
                   <div className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                     {/* Cooked Octopus Image */}
                     <Image
@@ -211,17 +276,23 @@ export default function BrandSection() {
                       className="object-contain"
                     />
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Third Authenticity Section - 3무 법칙 */}
-          <div className="bg-gray-50 py-20">
+          {/* Third Authenticity Section - 3무 법칙, 순차적 fadeInUp 효과 */}
+          <motion.div 
+            className="bg-gray-50 py-20"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+            variants={sectionVariants}
+          >
             <div className="max-w-7xl mx-auto px-4">
               <div className="grid lg:grid-cols-[2fr_1fr] gap-16 items-center">
                 {/* Left - 3무 법칙 Image */}
-                <div className="relative">
+                <motion.div className="relative" variants={authenticityItemVariants}>
                   <div className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                     <Image
                       src="/images/1dd61c4af9b12.png"
@@ -230,10 +301,10 @@ export default function BrandSection() {
                       className="object-contain"
                     />
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Right - Content */}
-                <div className="space-y-6">
+                <motion.div className="space-y-6" variants={authenticityItemVariants}>
                   {/* Badge */}
                   <div className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-bold text-lg">
                     세 번째 진정성
@@ -257,10 +328,10 @@ export default function BrandSection() {
                       건강하고 깨끗한 식사를 선물하는 것이 황금쭈꾸미의 <span className="font-semibold text-red-600">진정성</span>입니다.
                     </p>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
 
         </div>

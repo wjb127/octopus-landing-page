@@ -1,22 +1,71 @@
 'use client'
 
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 export default function FranchiseSystemSection() {
+  // 원본과 동일한 fadeInUp 애니메이션 variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.7,
+        ease: "easeOut" as const
+      }
+    }
+  }
+
+  const headerVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.7,
+        ease: "easeOut" as const,
+        delay: 0.2
+      }
+    }
+  }
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-gray-50" id="franchise-system">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          {/* 섹션 헤더 */}
-          <div className="text-center mb-12 lg:mb-16">
+          {/* 섹션 헤더 - fadeInUp 효과 */}
+          <motion.div 
+            className="text-center mb-12 lg:mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+            variants={headerVariants}
+          >
             <p className="text-base sm:text-lg text-gray-600 mb-2">성공 창업의 황금오션</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
               황금쭈꾸미집의 <span className="text-red-600">프랜차이즈 시스템</span>
             </h2>
-          </div>
+          </motion.div>
 
-          {/* 01 품질관리 */}
-          <div className="mb-12 lg:mb-16">
+          {/* 프랜차이즈 시스템 항목들 - 순차적 fadeInUp 효과 */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px", amount: 0.1 }}
+            variants={containerVariants}
+          >
+            {/* 01 품질관리 */}
+            <motion.div className="mb-12 lg:mb-16" variants={itemVariants}>
             <div className="flex items-center text-left mb-4">
               <Image
                 src="/images/2ecef0a50e5d1.png"
@@ -40,10 +89,10 @@ export default function FranchiseSystemSection() {
                 className="mx-auto rounded-lg"
               />
             </div>
-          </div>
+            </motion.div>
 
-          {/* 02 가맹교육 */}
-          <div className="mb-16">
+            {/* 02 가맹교육 */}
+            <motion.div className="mb-16" variants={itemVariants}>
             <div className="flex items-center text-left mb-4">
               <Image
                 src="/images/71253dca68ea2.png"
@@ -74,10 +123,10 @@ export default function FranchiseSystemSection() {
                 className="w-full rounded-lg"
               />
             </div>
-          </div>
+            </motion.div>
 
-          {/* 03 상생전략 */}
-          <div className="mb-16">
+            {/* 03 상생전략 */}
+            <motion.div className="mb-16" variants={itemVariants}>
             <div className="flex items-center text-left mb-4">
               <Image
                 src="/images/108c5216dee13.png"
@@ -108,10 +157,10 @@ export default function FranchiseSystemSection() {
                 className="w-full rounded-lg"
               />
             </div>
-          </div>
+            </motion.div>
 
-          {/* 04 쉽고 빠른 창업 */}
-          <div className="mb-16">
+            {/* 04 쉽고 빠른 창업 */}
+            <motion.div className="mb-16" variants={itemVariants}>
             <div className="flex items-center text-left mb-4">
               <Image
                 src="/images/295b498d2f1ee.png"
@@ -135,34 +184,35 @@ export default function FranchiseSystemSection() {
                 className="mx-auto rounded-lg"
               />
             </div>
-          </div>
+            </motion.div>
 
-          {/* 05 원물 공급 시스템 */}
-          <div className="mb-16">
-            <div className="flex items-center text-left mb-4">
-              <Image
-                src="/images/aceebeebd727f.png"
-                alt="원물 공급 시스템 아이콘"
-                width={26}
-                height={26}
-                className="mr-2"
-              />
-              <h3 className="text-2xl font-bold text-gray-800">원물 공급 시스템</h3>
-            </div>
-            <div className="text-left mb-6">
-              <p className="text-gray-600 text-sm">빠르고 안정적인 발주 및 관리 시스템으로</p>
-              <p className="text-gray-600 text-sm"><strong>고품질의 원물을 빠르게 공급</strong>합니다.</p>
-            </div>
-            <div className="text-center">
-              <Image
-                src="/images/aefae35fe8285.png"
-                alt="황금쭈꾸미집 원물 공급 시스템 이미지"
-                width={600}
-                height={300}
-                className="mx-auto rounded-lg"
-              />
-            </div>
-          </div>
+            {/* 05 원물 공급 시스템 */}
+            <motion.div className="mb-16" variants={itemVariants}>
+              <div className="flex items-center text-left mb-4">
+                <Image
+                  src="/images/aceebeebd727f.png"
+                  alt="원물 공급 시스템 아이콘"
+                  width={26}
+                  height={26}
+                  className="mr-2"
+                />
+                <h3 className="text-2xl font-bold text-gray-800">원물 공급 시스템</h3>
+              </div>
+              <div className="text-left mb-6">
+                <p className="text-gray-600 text-sm">빠르고 안정적인 발주 및 관리 시스템으로</p>
+                <p className="text-gray-600 text-sm"><strong>고품질의 원물을 빠르게 공급</strong>합니다.</p>
+              </div>
+              <div className="text-center">
+                <Image
+                  src="/images/aefae35fe8285.png"
+                  alt="황금쭈꾸미집 원물 공급 시스템 이미지"
+                  width={600}
+                  height={300}
+                  className="mx-auto rounded-lg"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
