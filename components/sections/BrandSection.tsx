@@ -49,8 +49,8 @@ export default function BrandSection() {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid lg:grid-cols-2 gap-16 items-center mb-16"
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+            className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-12 lg:mb-16"
           >
             {/* Left - Brand Story Text */}
             <motion.div variants={itemVariants} className="space-y-8">
@@ -63,21 +63,21 @@ export default function BrandSection() {
                     height={60}
                     className="mr-4"
                   />
-                  <h2 className="text-4xl md:text-5xl font-bold text-gray-800">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">
                     쭈꾸미집
                   </h2>
                 </div>
-                <div className="space-y-6 text-lg md:text-xl text-gray-700 leading-relaxed">
+                <div className="space-y-4 sm:space-y-6 text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed">
                   <p>
-                    <span className="font-semibold text-red-600">2011년</span>, 열정 가득한 청년이 시작한 창업은<br />
+                    <span className="font-semibold text-red-600">2011년</span>, 열정 가득한 청년이 시작한 창업은<br className="hidden sm:block" />
                     보란듯이 <span className="font-semibold">실패했습니다.</span>
                   </p>
                   <p>
-                    저희는 아주 작은 부분부터 제품, 서비스, 맛까지<br />
+                    저희는 아주 작은 부분부터 제품, 서비스, 맛까지<br className="hidden sm:block" />
                     수없는 시행착오로 <span className="font-semibold">10년의 세월</span>을 걸어왔습니다.
                   </p>
                   <p>
-                    이제는 그 길에서 얻은 노하우로 <span className="font-semibold text-red-600">황금쭈꾸미집</span>의<br />
+                    이제는 그 길에서 얻은 노하우로 <span className="font-semibold text-red-600">황금쭈꾸미집</span>의<br className="hidden sm:block" />
                     새로운 식구들과 함께 <span className="font-semibold">더 넓은 곳으로</span> 나아가고 싶습니다.
                   </p>
                 </div>
@@ -86,7 +86,7 @@ export default function BrandSection() {
 
             {/* Right - Brand Image */}
             <motion.div variants={zoomInVariants} className="relative">
-              <div className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden">
+              <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-2xl overflow-hidden">
                 <Image
                   src="/images/aff99ce23d431.png"
                   alt="황금쭈꾸미집 브랜드 소개"

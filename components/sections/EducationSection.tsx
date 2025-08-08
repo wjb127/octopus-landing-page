@@ -107,16 +107,16 @@ export default function EducationSection() {
       </div>
 
       {/* 콘텐츠 */}
-      <div className="relative z-10 container mx-auto px-4 py-20">
+      <div className="relative z-10 container mx-auto px-4 py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto">
           {/* 상단 타이틀 이미지 */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 sm:mb-12">
             <Image
               src="/images/dbf4ae8e7236a.png"
               alt="오직 본점에서만 6000개 이상, 황금쭈꾸미집 100% 진리뵤!"
               width={800}
               height={165}
-              className="mx-auto"
+              className="mx-auto w-full max-w-2xl h-auto"
             />
           </div>
           

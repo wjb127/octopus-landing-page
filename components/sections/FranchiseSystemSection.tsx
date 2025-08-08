@@ -4,19 +4,19 @@ import Image from 'next/image'
 
 export default function FranchiseSystemSection() {
   return (
-    <section className="py-20 bg-gray-50" id="franchise-system">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gray-50" id="franchise-system">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* 섹션 헤더 */}
-          <div className="text-center mb-16">
-            <p className="text-lg text-gray-600 mb-2">성공 창업의 황금오션</p>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+          <div className="text-center mb-12 lg:mb-16">
+            <p className="text-base sm:text-lg text-gray-600 mb-2">성공 창업의 황금오션</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
               황금쭈꾸미집의 <span className="text-red-600">프랜차이즈 시스템</span>
             </h2>
           </div>
 
           {/* 01 품질관리 */}
-          <div className="mb-16">
+          <div className="mb-12 lg:mb-16">
             <div className="flex items-center text-left mb-4">
               <Image
                 src="/images/2ecef0a50e5d1.png"

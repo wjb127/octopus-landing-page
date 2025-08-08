@@ -56,10 +56,10 @@ export default function PhilosophySection() {
         <div className="max-w-4xl mx-auto">
           {/* 메인 텍스트 - 원본과 동일한 흰색 텍스트 */}
           <div className="mb-12">
-            <h4 className="text-2xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6 text-white">
+            <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-4 sm:mb-6 text-white">
               백반집은 밥이 맛있어야 하고,
             </h4>
-            <h4 className="text-2xl md:text-4xl lg:text-5xl font-bold leading-tight text-white mb-8">
+            <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight text-white mb-6 sm:mb-8">
               쭈꾸미집은 쭈꾸미가 맛있어야 한다.
             </h4>
             
