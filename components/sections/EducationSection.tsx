@@ -116,6 +116,16 @@ export default function EducationSection() {
   // 무한 반복을 위한 카드 배열 (원본 6개 * 3 = 18개)
   const infiniteReviews = [...reviewData, ...reviewData, ...reviewData]
 
+  // 이미지 전용 카드 매핑: 해당 id 카드 전체를 단일 이미지로 표시
+  // 아래 파일명으로 이미지를 `/public/images`에 추가해 주세요.
+  const imageOnlyById: Record<number, string> = {
+    5: '/images/dfc3023067503.png',
+    2: '/images/44ce3f37629fb.png',
+    1: '/images/9e9015841d672.png',
+    3: '/images/27b2f6d89f8c9.png',
+    4: '/images/1f504167793bd.png',
+  }
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden" id="education">
       {/* 배경 이미지 */}
@@ -164,62 +174,80 @@ export default function EducationSection() {
               transition: 'none', // 부드러운 연속 이동을 위해 transition 제거
               width: `${cardWidth * infiniteReviews.length}px`
             }}>
-              {infiniteReviews.map((review, index) => (
+            {infiniteReviews.map((review, index) => {
+              const isImageOnly = review.id in imageOnlyById
+              return (
                 <div
                   key={`${review.id}-${Math.floor(index / reviewData.length)}`}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden flex-shrink-0 w-72 transform hover:scale-105 transition-transform duration-300"
+                  className={`${isImageOnly ? 'bg-transparent shadow-none' : 'bg-white shadow-lg'} rounded-lg overflow-hidden flex-shrink-0 w-72 transform hover:scale-105 transition-transform duration-300`}
                 >
-                  {/* 카드 헤더 */}
-                  <div className="p-4 border-b">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs text-gray-500">{review.date}</span>
-                      <span className="text-xs text-teal-600 bg-teal-50 px-2 py-1 rounded">
-                        {review.location}
-                      </span>
+                  {isImageOnly ? (
+                    // 전체 카드 내용을 단일 이미지로 대체 (배경 투명)
+                    <div className="relative w-full aspect-[4/5] bg-transparent">
+                      <Image
+                        src={imageOnlyById[review.id]}
+                        alt="리뷰 이미지"
+                        fill
+                        className="object-contain"
+                        priority
+                      />
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium text-gray-800">{review.author}</span>
-                      <div className="flex">
-                        {[...Array(review.rating)].map((_, i) => (
-                          <span key={i} className="text-yellow-400 text-sm">★</span>
+                  ) : (
+                    <>
+                      {/* 카드 헤더 */}
+                      <div className="p-4 border-b">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs text-gray-500">{review.date}</span>
+                          <span className="text-xs text-teal-600 bg-teal-50 px-2 py-1 rounded">
+                            {review.location}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="font-medium text-gray-800">{review.author}</span>
+                          <div className="flex">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <span key={i} className="text-yellow-400 text-sm">★</span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 이미지 영역 */}
+                      <div className={`gap-1 p-2 ${review.images.length === 1 ? 'flex justify-center' : 'grid grid-cols-2'}`}>
+                        {review.images.map((image, idx) => (
+                          <div key={idx} className="relative h-24">
+                            <Image
+                              src={image}
+                              alt={`리뷰 이미지 ${idx + 1}`}
+                              fill
+                              className="object-cover rounded"
+                            />
+                          </div>
                         ))}
                       </div>
-                    </div>
-                  </div>
 
-                  {/* 이미지 영역 */}
-                  <div className={`gap-1 p-2 ${review.images.length === 1 ? 'flex justify-center' : 'grid grid-cols-2'}`}>
-                    {review.images.map((image, idx) => (
-                      <div key={idx} className="relative h-24">
-                        <Image
-                          src={image}
-                          alt={`리뷰 이미지 ${idx + 1}`}
-                          fill
-                          className="object-cover rounded"
-                        />
+                      {/* 리뷰 내용 */}
+                      <div className="p-4">
+                        <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                          {review.content}
+                        </p>
+                        
+                        {/* 하단 아이콘들 */}
+                        <div className="flex items-center justify-between text-xs text-gray-500">
+                          <div className="flex space-x-3">
+                            <span>👍 도움이 되었어요</span>
+                            <span>💬 댓글 달기</span>
+                          </div>
+                          <button className="text-teal-600 hover:text-teal-800">
+                            {review.status}
+                          </button>
+                        </div>
                       </div>
-                    ))}
-                  </div>
-
-                  {/* 리뷰 내용 */}
-                  <div className="p-4">
-                    <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                      {review.content}
-                    </p>
-                    
-                    {/* 하단 아이콘들 */}
-                    <div className="flex items-center justify-between text-xs text-gray-500">
-                      <div className="flex space-x-3">
-                        <span>👍 도움이 되었어요</span>
-                        <span>💬 댓글 달기</span>
-                      </div>
-                      <button className="text-teal-600 hover:text-teal-800">
-                        {review.status}
-                      </button>
-                    </div>
-                  </div>
+                    </>
+                  )}
                 </div>
-              ))}
+              )
+            })}
             </div>
           </motion.div>
 

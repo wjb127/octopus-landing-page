@@ -45,7 +45,7 @@ export default function ProfitAnalysisSection() {
 
   return (
     <section className="relative py-20 overflow-hidden" id="profit-analysis">
-      {/* 배경 이미지 - 매장 내부 실제 모습 */}
+      {/* 배경: 매장 이미지 + 어두운 오버레이 + 은은한 노란빛 그라데이션 */}
       <div className="absolute inset-0">
         <Image
           src="/images/store-cctv.jpg"
@@ -54,8 +54,10 @@ export default function ProfitAnalysisSection() {
           className="object-cover"
           priority
         />
-        {/* 어두운 오버레이로 텍스트 가독성 확보 */}
-        <div className="absolute inset-0 bg-black/70"></div>
+        {/* 텍스트 가독성용 어두운 오버레이 */}
+        <div className="absolute inset-0 bg-black/60"></div>
+        {/* 은은한 황금빛 레이어 (중앙에서 퍼지는 라디얼 그라데이션) */}
+        <div className="absolute inset-0 pointer-events-none mix-blend-screen bg-[radial-gradient(ellipse_at_center,_rgba(255,194,15,0.28)_0%,_rgba(255,194,15,0.18)_35%,_rgba(255,194,15,0.08)_55%,_rgba(255,194,15,0)_80%)]"></div>
       </div>
 
       {/* 콘텐츠 */}
