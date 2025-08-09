@@ -6,6 +6,7 @@ import { X, ChevronUp, Phone, User, MessageSquare } from 'lucide-react'
 
 export default function BottomContactForm() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     phone1: '',
@@ -15,24 +16,61 @@ export default function BottomContactForm() {
     privacy: false
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
     if (!formData.privacy) {
       alert('개인정보 수집 및 이용에 동의해주세요.')
       return
     }
-    console.log('Form submitted:', formData)
-    alert('상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.')
-    // Reset form
-    setFormData({
-      name: '',
-      phone1: '',
-      phone2: '',
-      phone3: '',
-      message: '',
-      privacy: false
-    })
-    setIsOpen(false)
+
+    if (!formData.name || !formData.phone1 || !formData.phone2 || !formData.phone3) {
+      alert('필수 항목을 모두 입력해주세요.')
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      const phone = `${formData.phone1}-${formData.phone2}-${formData.phone3}`
+      
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: phone,
+          message: formData.message,
+          region: '미지정' // 지역 필드가 없으므로 기본값
+        }),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        alert('상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다!')
+        
+        // Reset form
+        setFormData({
+          name: '',
+          phone1: '',
+          phone2: '',
+          phone3: '',
+          message: '',
+          privacy: false
+        })
+        setIsOpen(false)
+      } else {
+        alert(result.error || '신청 중 오류가 발생했습니다. 다시 시도해주세요.')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert('네트워크 오류가 발생했습니다. 인터넷 연결을 확인해주세요.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -208,11 +246,16 @@ export default function BottomContactForm() {
                 <div className="flex justify-center pt-2">
                   <motion.button
                     type="submit"
-                    className="px-8 py-3 bg-yellow-500 text-gray-900 text-lg font-bold rounded-lg hover:bg-yellow-400 transition-colors shadow-lg"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    disabled={isSubmitting}
+                    className={`px-8 py-3 text-lg font-bold rounded-lg shadow-lg transition-colors ${
+                      isSubmitting 
+                        ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
+                        : 'bg-yellow-500 text-gray-900 hover:bg-yellow-400'
+                    }`}
+                    whileHover={isSubmitting ? {} : { scale: 1.02 }}
+                    whileTap={isSubmitting ? {} : { scale: 0.98 }}
                   >
-                    무료 상담 신청하기
+                    {isSubmitting ? '전송 중...' : '무료 상담 신청하기'}
                   </motion.button>
                 </div>
               </form>

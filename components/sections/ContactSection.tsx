@@ -7,6 +7,7 @@ import { useInView } from 'framer-motion'
 export default function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -14,11 +15,51 @@ export default function ContactSection() {
     message: ''
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // 실제 구현에서는 여기에 폼 제출 로직을 추가
-    console.log('Form submitted:', formData)
-    alert('상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.')
+    
+    if (!formData.name || !formData.phone) {
+      alert('이름과 연락처는 필수입니다.')
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          message: formData.message,
+          region: '미지정'
+        }),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        alert('상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다!')
+        
+        // Reset form
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          message: ''
+        })
+      } else {
+        alert(result.error || '신청 중 오류가 발생했습니다. 다시 시도해주세요.')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert('네트워크 오류가 발생했습니다. 인터넷 연결을 확인해주세요.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
